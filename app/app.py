@@ -1,9 +1,14 @@
 import time
 import redis
 from flask import Flask, render_template
+import os
+from dotenv import load_dotenv
 
+# Connect Redis database via docker-compose.yaml with password
+load_dotenv() 
+cache = redis.Redis(host=os.getenv('REDIS_HOST'), port=6379,  password=os.getenv('REDIS_PASSWORD'))
 app = Flask(__name__) # Creates the Flask object app that represent the main application
-cache = redis.Redis(host='redis', port=6379) # Connect Redis database via docker-compose.yaml
+#cache = redis.Redis(host='redis', port=6379)
 
 def get_hit_count():
     retries = 5

@@ -1,2 +1,3 @@
 Flask
 Redis
+python-dotenv #  allows to either use environment variables or hidden files (.env) for things like passwords.

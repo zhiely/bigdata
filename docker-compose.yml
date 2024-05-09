@@ -4,6 +4,8 @@ services:
     image: redislabs/redismod #The first service is an offical Redis image from Docker Hub
     ports:
       - '6379:6379' #Port publishing of the container port 6379 to the host port 6379
+    command: --requirepass ${REDIS_PASSWORD}
+
   web:
     build: .
     stop_signal: SIGINT #flask requires SIGINT to stop 
@@ -13,3 +15,6 @@ services:
       - ./app:/app #now can update without a new build of the container
     depends_on:
       - redis
+    environment: #read .env file
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
